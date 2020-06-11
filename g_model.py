@@ -56,3 +56,15 @@ class seg_GAN(object):
         self.train_phase = tf.placeholder(tf.bool, name='phase_train')
         self.G, self.layer = self.generator(self.inputCT,batch_size_tf)
         print 'G shape ',self.G.get_shape
+        self.prediction=tf.argmax(self.G,3)#preds by the generator
+        t_vars = tf.trainable_variables()
+
+        if self.adversarial:
+            self.probs_G=tf.nn.softmax(self.G)
+            self.GT_1hot=tf.one_hot(self.CT_GT,self.num_classes,1.0,0.0,axis=3,dtype=tf.float32)
+            print 'GT_1hot shape ',self.GT_1hot.get_shape()
+            print 'prediction shape ',self.prediction.get_shape
+            self.D, self.D_logits = self.discriminator(self.GT_1hot)#real CT GT data (1hot so they have same n channels)as input      
+            self.D_, self.D_logits_ = self.discriminator(self.probs_G, reuse=True)#fake generated CT probmaps as input
+            self.d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(self.D_logits, tf.ones_like(self.D)))
+            self.d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(self.D_logits_, tf.zeros_like(self.D_)))
