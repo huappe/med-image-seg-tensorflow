@@ -28,3 +28,13 @@ class seg_GAN(object):
 
 
         self.sess = sess
+        self.adversarial=adversarial
+        self.lam_dice=lam_dice
+        self.lam_fcn=lam_fcn
+        self.lam_adv=lam_adv
+        self.lr_step=lr_step
+        self.wd=wd
+        self.learning_rate=learning_rate
+        self.batch_size=batch_size       
+        self.height=height
+        self.width=width
