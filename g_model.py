@@ -68,3 +68,14 @@ class seg_GAN(object):
             self.D_, self.D_logits_ = self.discriminator(self.probs_G, reuse=True)#fake generated CT probmaps as input
             self.d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(self.D_logits, tf.ones_like(self.D)))
             self.d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(self.D_logits_, tf.zeros_like(self.D_)))
+            self.d_loss=self.d_loss_real+self.d_loss_fake
+            self.g_loss, self.diceterm, self.fcnterm, self.bceterm=self.combined_loss_G(batch_size_tf)
+
+            self.d_vars = [var for var in t_vars if 'd_' in var.name]
+
+            self.d_optim = tf.train.AdamOptimizer(self.learning_rate, beta1=0.5) \
+                          .minimize(self.d_loss, var_list=self.d_vars)
+
+        else:
+            self.g_loss, self.diceterm, self.fcnterm=self.combined_loss_G(batch_size_tf)
+
