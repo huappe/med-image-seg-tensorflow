@@ -38,3 +38,21 @@ class seg_GAN(object):
         self.batch_size=batch_size       
         self.height=height
         self.width=width
+        self.checkpoint_dir = checkpoint_dir
+        self.data_queue = Queue.Queue(100) # a queue with two space for 20 "chunks"
+        self.path_patients_h5=path_patients_h5
+        #self.data_generator = Generator_2D_slices_h5(path_patients_h5,self.batch_size)
+        self.build_model()
+
+    def build_model(self):
+
+        self.classweights=tf.transpose(tf.constant([[1.0,1.0,1.0,1.0,1.0]],dtype=tf.float32,name='classweights'))
+        self.num_classes=5
+
+        self.inputCT=tf.placeholder(tf.float32, shape=[None, self.height, self.width, 1])#5 chans input
+        #print 'inputCT shape ', self.inputCT.get_shape()
+        self.CT_GT=tf.placeholder(tf.int32, shape=[None, self.height, self.width])
+        batch_size_tf = tf.shape(self.inputCT)[0]  #variable batchsize so we can test here
+        self.train_phase = tf.placeholder(tf.bool, name='phase_train')
+        self.G, self.layer = self.generator(self.inputCT,batch_size_tf)
+        print 'G shape ',self.G.get_shape
