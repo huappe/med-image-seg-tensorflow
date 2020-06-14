@@ -79,3 +79,19 @@ class seg_GAN(object):
         else:
             self.g_loss, self.diceterm, self.fcnterm=self.combined_loss_G(batch_size_tf)
 
+
+
+        self.global_step = tf.Variable(0, name='global_step', trainable=False)
+        
+
+        self.g_vars = [var for var in t_vars if 'g_' in var.name]
+                     
+        print 'learning rate ',self.learning_rate
+        self.learning_rate_tensor = tf.train.exponential_decay(self.learning_rate, self.global_step,
+                                             self.lr_step, 0.1, staircase=True)
+        #self.g_optim = tf.train.GradientDescentOptimizer(self.learning_rate_tensor).minimize(self.g_loss, global_step=self.global_step)
+        self.g_optim = tf.train.MomentumOptimizer(self.learning_rate_tensor, 0.9).minimize(self.g_loss, global_step=self.global_step)
+        
+        self.merged = tf.merge_all_summaries()
+        self.writer = tf.train.SummaryWriter("./summaries", self.sess.graph)
+
