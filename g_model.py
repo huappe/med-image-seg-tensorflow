@@ -95,3 +95,18 @@ class seg_GAN(object):
         self.merged = tf.merge_all_summaries()
         self.writer = tf.train.SummaryWriter("./summaries", self.sess.graph)
 
+
+
+
+        self.saver = tf.train.Saver(max_to_keep=50000)
+
+
+    def generator(self,input_op,batch_size_tf):
+               
+        ######## FCN for the 32x32x32 to 24x24x24 ###################################
+        conv1_1 = conv_op(input_op, name="g_conv1_1", kh=7, kw=7, n_out=32, dh=1, dw=1,wd=self.wd)#512x512
+        conv1_2 = conv_op(conv1_1, name="g_conv1_2", kh=7, kw=7, n_out=32, dh=1, dw=1,wd=self.wd)
+        pool1 = mpool_op(conv1_2,   name="g_pool1",   kh=2, kw=2, dw=2, dh=2)#256x256
+        conv2_1 = conv_op(pool1, name="g_conv2_1", kh=7, kw=7, n_out=64, dh=1, dw=1,wd=self.wd)#256x256
+        conv2_2 = conv_op(conv2_1, name="g_conv2_2", kh=7, kw=7, n_out=64, dh=1, dw=1,wd=self.wd)
+        pool2 = mpool_op(conv2_2,   name="g_pool2",   kh=2, kw=2, dw=2, dh=2)#128x128
