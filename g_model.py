@@ -110,3 +110,12 @@ class seg_GAN(object):
         conv2_1 = conv_op(pool1, name="g_conv2_1", kh=7, kw=7, n_out=64, dh=1, dw=1,wd=self.wd)#256x256
         conv2_2 = conv_op(conv2_1, name="g_conv2_2", kh=7, kw=7, n_out=64, dh=1, dw=1,wd=self.wd)
         pool2 = mpool_op(conv2_2,   name="g_pool2",   kh=2, kw=2, dw=2, dh=2)#128x128
+        conv3_1 = conv_op(pool2, name="g_conv3_1", kh=7, kw=7, n_out=96, dh=1, dw=1,wd=self.wd)
+        conv3_2 = conv_op(conv3_1, name="g_conv3_2", kh=7, kw=7, n_out=96, dh=1, dw=1,wd=self.wd)
+        pool3 = mpool_op(conv3_2,   name="g_pool2",   kh=2, kw=2, dw=2, dh=2)#64x64
+        conv4_1 = conv_op(pool3, name="g_conv4_1", kh=7, kw=7, n_out=128, dh=1, dw=1,wd=self.wd)
+        conv4_2 = conv_op(conv4_1, name="g_conv4_2", kh=7, kw=7, n_out=128, dh=1, dw=1,wd=self.wd)
+        deconv1 = deconv_op(conv4_2,    name="g_deconv1", kh=4, kw=4, n_out=64, wd=self.wd, batchsize=batch_size_tf)#128x128
+        concat1=concatenate_op(deconv1,conv3_2,name="g_concat1")
+        deconv2 = deconv_op(concat1,    name="g_deconv2", kh=4, kw=4, n_out=64, wd=self.wd, batchsize=batch_size_tf)#256x256
+        concat2=concatenate_op(deconv2,conv2_2,name="g_concat2")
