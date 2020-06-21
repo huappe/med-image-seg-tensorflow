@@ -119,3 +119,16 @@ class seg_GAN(object):
         concat1=concatenate_op(deconv1,conv3_2,name="g_concat1")
         deconv2 = deconv_op(concat1,    name="g_deconv2", kh=4, kw=4, n_out=64, wd=self.wd, batchsize=batch_size_tf)#256x256
         concat2=concatenate_op(deconv2,conv2_2,name="g_concat2")
+        deconv3 = deconv_op(concat2,    name="g_deconv3", kh=4, kw=4, n_out=32, wd=self.wd, batchsize=batch_size_tf)#512x512
+        concat3=concatenate_op(deconv3,conv1_2,name="g_concat3")
+        upscore = conv_op(concat3, name="g_upscore", kh=7, kw=7, n_out=self.num_classes, dh=1, dw=1,wd=self.wd,activation=False)#512x512
+        return upscore,upscore
+
+
+    def discriminator(self, inputCT, reuse=False):
+        if reuse:
+            tf.get_variable_scope().reuse_variables()
+        print 'ct shape ',inputCT.get_shape()
+        h0=conv_op_bn(inputCT, name="d_conv_dis_1_a", kh=5, kw=5, n_out=32, dh=1, dw=1, wd=self.wd, padding='VALID',train_phase=self.train_phase)
+        print 'h0 shape ',h0.get_shape()
+        m0=mpool_op(h0, 'pool0', kh=2, kw=2, dh=2, dw=2)
