@@ -132,3 +132,15 @@ class seg_GAN(object):
         h0=conv_op_bn(inputCT, name="d_conv_dis_1_a", kh=5, kw=5, n_out=32, dh=1, dw=1, wd=self.wd, padding='VALID',train_phase=self.train_phase)
         print 'h0 shape ',h0.get_shape()
         m0=mpool_op(h0, 'pool0', kh=2, kw=2, dh=2, dw=2)
+        print 'm0 shape ',m0.get_shape()
+        h1 = conv_op_bn(m0, name="d_conv2_dis_a", kh=5, kw=5, n_out=64, dh=1, dw=1, wd=self.wd, padding='VALID',train_phase=self.train_phase)
+        print 'h1 shape ',h1.get_shape()
+        m1=mpool_op(h1, 'pool1', kh=2, kw=2, dh=2, dw=2)
+        print 'mi shape ',m1.get_shape()
+        h2 = conv_op_bn(m1, name="d_conv3_dis_a", kh=5, kw=5, n_out=128, dh=1, dw=1, wd=self.wd, padding='VALID',train_phase=self.train_phase)#28
+        h3 = conv_op_bn(h2, name="d_conv4_dis_a", kh=5, kw=5, n_out=64, dh=1, dw=1, wd=self.wd, padding='VALID',train_phase=self.train_phase)
+        fc1=fullyconnected_op(h3, name="d_fc1", n_out=64, wd=self.wd, activation=True)
+        fc2=fullyconnected_op(fc1, name="d_fc2", n_out=32, wd=self.wd, activation=True)
+        fc3=fullyconnected_op(fc2, name="d_fc3", n_out=1, wd=self.wd, activation=False)
+        return tf.nn.sigmoid(fc3), fc3
+
