@@ -144,3 +144,14 @@ class seg_GAN(object):
         fc3=fullyconnected_op(fc2, name="d_fc3", n_out=1, wd=self.wd, activation=False)
         return tf.nn.sigmoid(fc3), fc3
 
+
+
+
+    def train(self, config):
+        path_test=config.dir_patients#'/home/trullro/CT_cleaned/'
+        _, patients, _ = os.walk(path_test).next()#every folder is a patient
+        patients.sort()
+        patientstmp=patients[-4]
+        print 'global_step ', self.global_step.name
+        print 'lr_step ',self.lr_step
+        print 'trainable vars '
