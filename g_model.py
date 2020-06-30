@@ -169,3 +169,21 @@ class seg_GAN(object):
         
         start = self.global_step.eval() # get last global_step
         print("Start from:", start)
+        
+        data_thread=threading.Thread(target=Generator_2D_slices_h5_prefetch, args=(self.path_patients_h5,self.batch_size,self.data_queue))
+        data_thread.daemon = True#so we can kill with ctrl-c
+        data_thread.start()
+
+        for it in range(start,config.iterations):
+            batch = self.data_queue.get(True)
+            X,y=batch
+
+            if self.adversarial:
+                # Update D network
+                _, loss_eval_D, = self.sess.run([self.d_optim, self.d_loss],
+                        feed_dict={ self.inputCT: X, self.CT_GT:y, self.train_phase: True })
+
+                # Update G network
+                #### maybe we need to get a different batch???########
+                #X,y=self.data_generator.next()
+                _, loss_eval_G, dice_eval,fcn_eval,bce_eval, layer_out_eval = self.sess.run([self.g_optim, 
