@@ -155,3 +155,17 @@ class seg_GAN(object):
         print 'global_step ', self.global_step.name
         print 'lr_step ',self.lr_step
         print 'trainable vars '
+        for v in tf.trainable_variables():
+            print v.name
+
+        
+        if self.load(self.checkpoint_dir):
+            print(" [*] Load SUCCESS")
+        else:
+            print(" [!] Load failed...")
+            self.sess.run(tf.initialize_all_variables())
+
+        self.sess.graph.finalize()
+        
+        start = self.global_step.eval() # get last global_step
+        print("Start from:", start)
