@@ -187,3 +187,13 @@ class seg_GAN(object):
                 #### maybe we need to get a different batch???########
                 #X,y=self.data_generator.next()
                 _, loss_eval_G, dice_eval,fcn_eval,bce_eval, layer_out_eval = self.sess.run([self.g_optim, 
+                                    self.g_loss, self.diceterm, self.fcnterm, self.bceterm, self.layer],
+                                    feed_dict={ self.inputCT: X, self.CT_GT:y, self.train_phase: True })
+            else:
+
+                _, loss_eval_G, dice_eval,fcn_eval, layer_out_eval = self.sess.run([self.g_optim, 
+                                    self.g_loss, self.diceterm, self.fcnterm, self.layer],
+                                    feed_dict={ self.inputCT: X, self.CT_GT:y, self.train_phase: True })            
+            
+            
+            
