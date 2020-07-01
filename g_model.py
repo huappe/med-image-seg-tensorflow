@@ -208,3 +208,15 @@ class seg_GAN(object):
                 print 'loss fcn G',fcn_eval
                 if self.adversarial:
                     print 'loss bce G ',bce_eval
+                    print 'loss D bce ',loss_eval_D
+
+
+                #print 'layer min ', np.min(layer_out_eval)
+                #print 'layer max ', np.max(layer_out_eval)
+                #print 'layer mean ', np.mean(layer_out_eval)
+                # print 'trainable vars ' 
+                # for v in self.g_vars:
+                    
+                #     print v.name 
+                #     data_var=self.sess.run(v) 
+                #     grads = tf.gradients(self.d_loss, v) 
