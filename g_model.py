@@ -197,3 +197,14 @@ class seg_GAN(object):
             
             
             
+            
+
+            if it%config.show_every==0:#show loss every show_every its
+                curr_lr=self.sess.run(self.learning_rate_tensor)
+                print 'lr= ',curr_lr
+                print 'time ',datetime.datetime.now(),' it ',it,
+                print 'loss total G ',loss_eval_G
+                print 'loss dice G ',dice_eval
+                print 'loss fcn G',fcn_eval
+                if self.adversarial:
+                    print 'loss bce G ',bce_eval
