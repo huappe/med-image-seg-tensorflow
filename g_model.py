@@ -220,3 +220,13 @@ class seg_GAN(object):
                 #     print v.name 
                 #     data_var=self.sess.run(v) 
                 #     grads = tf.gradients(self.d_loss, v) 
+                #     var_grad_val = self.sess.run(grads, feed_dict={self.inputCT: X, self.CT_GT:y, self.train_phase: False }) 
+                #     print 'grad min ', np.min(var_grad_val) 
+                #     print 'grad max ', np.max(var_grad_val) 
+                #     print 'grad mean ', np.mean(var_grad_val) 
+                    #print 'shape ',data_var.shape 
+                    #print 'filter min ', np.min(data_var) 
+                    #print 'filter max ', np.max(data_var) 
+                    #print 'filter mean ', np.mean(data_var)    
+                    #self.writer.add_summary(summary, it)
+                            # print 'trainable vars ' 
