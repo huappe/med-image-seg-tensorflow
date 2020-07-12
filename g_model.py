@@ -230,3 +230,22 @@ class seg_GAN(object):
                     #print 'filter mean ', np.mean(data_var)    
                     #self.writer.add_summary(summary, it)
                             # print 'trainable vars ' 
+
+            
+            if it%config.test_every==0 and it!=0:#==0:#test one subject
+            	print "testing ",patientstmp
+                ct_test_itk=sitk.ReadImage(os.path.join(path_test,patientstmp,patientstmp+'.nii.gz'))
+                seg_test_itk=sitk.ReadImage(os.path.join(path_test,patientstmp,'GT.nii.gz'))
+                ctnp=sitk.GetArrayFromImage(ct_test_itk)
+                ctnp[np.where(ctnp>3000)]=3000#we clap the images so they are in range -1000 to 3000  HU
+                muct=np.mean(ctnp)
+                stdct=np.std(ctnp)
+                ctnp=(1/stdct)*(ctnp-muct)#normalize each patient
+
+                segnp=sitk.GetArrayFromImage(seg_test_itk)
+
+                vol_out=self.test_1_subject(ctnp)
+                
+                dceso=dice(vol_out, segnp,1)
+                dcheart=dice(vol_out, segnp,2)
+                dctrachea=dice(vol_out, segnp,3)
