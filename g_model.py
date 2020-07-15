@@ -260,3 +260,16 @@ class seg_GAN(object):
             if it%config.save_every==0:#save weights every save_every iterations
                 self.save(self.checkpoint_dir, it)
 
+
+
+    def test_1_subject(self,CT_image):
+        """
+            receives a CT image (already normalized) and returns an estimated segmentation of the same size
+        """
+        shape=CT_image.shape#slices,H,W
+        vol_out=np.zeros_like(CT_image)
+        vol_out=vol_out.astype(np.uint8)
+        for i in xrange(shape[0]):
+            ctslice=CT_image[i,...]
+            ctslice = np.expand_dims(ctslice, axis=0)
+            ctslice = np.expand_dims(ctslice, axis=3)#B,H,W,Ch
