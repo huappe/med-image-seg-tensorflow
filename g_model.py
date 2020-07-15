@@ -249,3 +249,14 @@ class seg_GAN(object):
                 dceso=dice(vol_out, segnp,1)
                 dcheart=dice(vol_out, segnp,2)
                 dctrachea=dice(vol_out, segnp,3)
+                dcaorta=dice(vol_out, segnp,4)
+                print 'eso {}'.format(dceso) 
+                print 'heart {}'.format(dcheart)
+                print 'trachea {}'.format(dctrachea)
+                print 'aorta {}'.format(dcaorta)
+                volout=sitk.GetImageFromArray(vol_out)
+                sitk.WriteImage(volout,'ct_estimated_{}'.format(it)+'.nii.gz')
+
+            if it%config.save_every==0:#save weights every save_every iterations
+                self.save(self.checkpoint_dir, it)
+
