@@ -273,3 +273,15 @@ class seg_GAN(object):
             ctslice=CT_image[i,...]
             ctslice = np.expand_dims(ctslice, axis=0)
             ctslice = np.expand_dims(ctslice, axis=3)#B,H,W,Ch
+            predtmp  = self.sess.run(self.prediction, feed_dict={self.inputCT:ctslice})
+            vol_out[i]=predtmp
+            #print 'slice {} done'.format(i)
+        return vol_out
+
+
+            
+    def save(self, checkpoint_dir, step):
+        model_name = "MR2CT.model"
+        
+        if not os.path.exists(checkpoint_dir):
+            os.makedirs(checkpoint_dir)
