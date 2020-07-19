@@ -320,3 +320,16 @@ class seg_GAN(object):
 
 
         for idx,namepatient in enumerate(patientstmp):
+            print namepatient
+            ct_test_itk=sitk.ReadImage(os.path.join(path_patients,namepatient,namepatient+'.nii.gz'))
+            ctnp=sitk.GetArrayFromImage(ct_test_itk)
+            ctnp[np.where(ctnp>3000)]=3000#we clap the images so they are in range -1000 to 3000  HU
+            muct=np.mean(ctnp)
+            stdct=np.std(ctnp)
+            ctnp=(1/stdct)*(ctnp-muct)#normalize each patient
+            segitk=sitk.ReadImage(os.path.join(path_patients,namepatient,'GT.nii.gz'))
+            segnp=sitk.GetArrayFromImage(segitk)
+
+            vol_out=self.test_1_subject(ctnp)            
+                
+            dceso=dice(vol_out, segnp,1)
