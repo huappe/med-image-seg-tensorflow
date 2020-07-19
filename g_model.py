@@ -299,3 +299,24 @@ class seg_GAN(object):
             self.saver.restore(self.sess, ckpt.model_checkpoint_path)
             return True
         else:
+            return False
+
+
+    def test(self,dir_patients):
+        path_patients=dir_patients
+        _, patients, _ = os.walk(path_patients).next()#every folder is a patient
+        patients.sort()
+        patientstmp=[patients[-4],patients[-3],patients[-2],patients[-1]]#last 4 are for testing
+
+        listdceso=[]
+        listdcheart=[]
+        listdctrachea=[]
+        listdcaorta=[]
+
+        listdceso_p=[]
+        listdcheart_p=[]
+        listdctrachea_p=[]
+        listdcaorta_p=[]
+
+
+        for idx,namepatient in enumerate(patientstmp):
