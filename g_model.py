@@ -333,3 +333,11 @@ class seg_GAN(object):
             vol_out=self.test_1_subject(ctnp)            
                 
             dceso=dice(vol_out, segnp,1)
+            dcheart=dice(vol_out, segnp,2)
+            dctrachea=dice(vol_out, segnp,3)
+            dcaorta=dice(vol_out, segnp,4)
+
+            print 'eso {}'.format(dceso) 
+            print 'heart {}'.format(dcheart)
+            print 'trachea {}'.format(dctrachea)
+            print 'aorta {}'.format(dcaorta)
