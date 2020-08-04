@@ -341,3 +341,18 @@ class seg_GAN(object):
             print 'heart {}'.format(dcheart)
             print 'trachea {}'.format(dctrachea)
             print 'aorta {}'.format(dcaorta)
+
+            listdceso.append(dceso)
+            listdcheart.append(dcheart)
+            listdcaorta.append(dcaorta)
+            listdctrachea.append(dctrachea)
+
+            print 'with postprocessing...'
+            vol_out=postprocess(vol_out)
+            vol_out=process_eso(vol_out)
+
+            volout=sitk.GetImageFromArray(vol_out)
+            sitk.WriteImage(volout,namepatient+'_out_dice.nii.gz')
+
+            dceso=dice(vol_out, segnp,1)
+            dcheart=dice(vol_out, segnp,2)
