@@ -356,3 +356,20 @@ class seg_GAN(object):
 
             dceso=dice(vol_out, segnp,1)
             dcheart=dice(vol_out, segnp,2)
+            dctrachea=dice(vol_out, segnp,3)
+            dcaorta=dice(vol_out, segnp,4)
+
+            print 'eso {}'.format(dceso) 
+            print 'heart {}'.format(dcheart)
+            print 'trachea {}'.format(dctrachea)
+            print 'aorta {}'.format(dcaorta)
+
+            listdceso_p.append(dceso)
+            listdcheart_p.append(dcheart)
+            listdcaorta_p.append(dcaorta)
+            listdctrachea_p.append(dctrachea)
+
+        print 'Global Normal'
+        print 'mean eso ',np.mean(listdceso),'+- ',np.std(listdceso)
+        print 'mean heart ',np.mean(listdcheart),'+- ',np.std(listdcheart)
+        print 'mean trachea ',np.mean(listdctrachea),'+- ',np.std(listdctrachea)
