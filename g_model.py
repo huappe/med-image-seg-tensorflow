@@ -373,3 +373,18 @@ class seg_GAN(object):
         print 'mean eso ',np.mean(listdceso),'+- ',np.std(listdceso)
         print 'mean heart ',np.mean(listdcheart),'+- ',np.std(listdcheart)
         print 'mean trachea ',np.mean(listdctrachea),'+- ',np.std(listdctrachea)
+        print 'mean aorta ',np.mean(listdcaorta),'+- ',np.std(listdcaorta)
+
+        print 'Global with postprocessing'
+        print 'mean eso ',np.mean(listdceso_p),'+- ',np.std(listdceso_p)
+        print 'mean heart ',np.mean(listdcheart_p),'+- ',np.std(listdcheart_p)
+        print 'mean trachea ',np.mean(listdctrachea_p),'+- ',np.std(listdctrachea_p)
+        print 'mean aorta ',np.mean(listdcaorta_p),'+- ',np.std(listdcaorta_p)
+
+
+
+
+    def combined_loss_G(self,batch_size_tf):
+        """
+        Calculates the sum of the combined adversarial, lp and GDL losses in the given proportion. Used
+        for training the generative model.
