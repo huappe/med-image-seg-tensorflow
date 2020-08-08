@@ -388,3 +388,10 @@ class seg_GAN(object):
         """
         Calculates the sum of the combined adversarial, lp and GDL losses in the given proportion. Used
         for training the generative model.
+
+        @param gen_frames: A list of tensors of the generated frames at each scale.
+        @param gt_frames: A list of tensors of the ground truth frames at each scale.
+        @param d_preds: A list of tensors of the classifications made by the discriminator model at each
+                        scale.
+        @param lam_adv: The percentage of the adversarial loss to use in the combined loss.
+        @param lam_lp: The percentage of the lp loss to use in the combined loss.
