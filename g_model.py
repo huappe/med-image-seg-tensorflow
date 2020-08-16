@@ -395,3 +395,21 @@ class seg_GAN(object):
                         scale.
         @param lam_adv: The percentage of the adversarial loss to use in the combined loss.
         @param lam_lp: The percentage of the lp loss to use in the combined loss.
+        @param lam_gdl: The percentage of the GDL loss to use in the combined loss.
+        @param l_num: 1 or 2 for l1 and l2 loss, respectively).
+        @param alpha: The power to which each gradient term is raised in GDL loss.
+
+        @return: The combined adversarial, lp and GDL losses.
+
+        """
+
+        diceterm=loss_dice(self.G, self.CT_GT, self.num_classes,batch_size_tf)
+        fcnterm=lossfcn(self.G, self.CT_GT, self.num_classes, batch_size_tf, self.classweights)
+        if self.adversarial:
+            bceterm=tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(self.D_logits_, tf.ones_like(self.D_)))
+            loss_=self.lam_dice*diceterm + self.lam_fcn*fcnterm + self.lam_adv*bceterm
+            tf.add_to_collection('losses', loss_)
+            loss = tf.add_n(tf.get_collection('losses'), name='total_loss')
+            return loss, diceterm, fcnterm, bceterm
+
+        else:
