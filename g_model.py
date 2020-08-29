@@ -413,3 +413,7 @@ class seg_GAN(object):
             return loss, diceterm, fcnterm, bceterm
 
         else:
+            loss_=self.lam_dice*diceterm + self.lam_fcn*fcnterm
+            tf.add_to_collection('losses', loss_)
+            loss = tf.add_n(tf.get_collection('losses'), name='total_loss')
+            return loss, self.lam_dice*diceterm, self.lam_fcn*fcnterm
