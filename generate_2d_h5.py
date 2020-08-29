@@ -15,3 +15,22 @@ from multiprocessing import Pool
 import argparse
 
 def worker(idx,namepatient,path_patients,dirname):
+    print namepatient
+    ctitk=sitk.ReadImage(os.path.join(path_patients,namepatient,namepatient+'.nii.gz')) 
+    
+       
+    ctnp=sitk.GetArrayFromImage(ctitk)
+    ctnp[np.where(ctnp>3000)]=3000#we calp the images so they are in range -1000 to 3000  HU
+    muct=np.mean(ctnp)
+    stdct=np.std(ctnp)
+    
+    ctnp=(1/stdct)*(ctnp-muct)#normalize each patient
+    segitk=sitk.ReadImage(os.path.join(path_patients,namepatient,'GT.nii.gz'))
+    segnp=sitk.GetArrayFromImage(segitk)
+    
+    bodyitk=sitk.ReadImage(os.path.join(path_patients,namepatient,'CONTOUR.nii.gz'))
+    bodynp=sitk.GetArrayFromImage(bodyitk)
+    
+    idxbg=np.where(bodynp==0)
+    ctnp[idxbg]=np.min(ctnp)#just put the min val in the parts that are not body
+    segnp[idxbg]=5#ignore this value in the protoxt
