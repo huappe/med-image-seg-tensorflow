@@ -34,3 +34,17 @@ def worker(idx,namepatient,path_patients,dirname):
     idxbg=np.where(bodynp==0)
     ctnp[idxbg]=np.min(ctnp)#just put the min val in the parts that are not body
     segnp[idxbg]=5#ignore this value in the protoxt
+    
+    
+    list_idx=[]
+    for i in xrange(ctnp.shape[0]):#select slices with organs
+        if len(np.unique(segnp[i,:,:]))>2:
+            list_idx.append(i)
+    ctnp=ctnp[list_idx,:,:]
+    segnp=segnp[list_idx,:,:]
+    
+    #shuffle the data
+    idx_rnd=np.random.choice(ctnp.shape[0], ctnp.shape[0], replace=False)
+    ctnp=ctnp[idx_rnd,:,:]
+    segnp=segnp[idx_rnd,:,:]
+    ctnp = np.expand_dims(ctnp, axis=1) 
