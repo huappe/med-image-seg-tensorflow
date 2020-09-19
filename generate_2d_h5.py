@@ -48,3 +48,20 @@ def worker(idx,namepatient,path_patients,dirname):
     ctnp=ctnp[idx_rnd,:,:]
     segnp=segnp[idx_rnd,:,:]
     ctnp = np.expand_dims(ctnp, axis=1) 
+    train_filename = os.path.join(dirname, 'train{}.h5'.format(idx))
+    comp_kwargs = {'compression': 'gzip', 'compression_opts': 1}
+    with h5py.File(train_filename, 'w') as f:
+        f.create_dataset('data', data=ctnp, **comp_kwargs)
+        f.create_dataset('label', data=segnp, **comp_kwargs)        
+    print "patient  {0} finishedm type:  {1}!".format(namepatient, ctnp.dtype)
+
+def create_training(path_patients,dirsaveto):
+    _, patients, _ = os.walk(path_patients).next()#every folder is a patient
+    patients.sort()
+    patientstmp=patients[:-4]
+    print patientstmp
+    
+    #we read the first images just to know the sizes
+    ctitk=sitk.ReadImage(os.path.join(path_patients,patientstmp[0],patientstmp[0]+'.nii.gz')) 
+    ctnp=sitk.GetArrayFromImage(ctitk)
+    [slices,rows,cols]=ctnp.shape
