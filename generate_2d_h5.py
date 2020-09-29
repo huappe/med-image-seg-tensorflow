@@ -65,3 +65,15 @@ def create_training(path_patients,dirsaveto):
     ctitk=sitk.ReadImage(os.path.join(path_patients,patientstmp[0],patientstmp[0]+'.nii.gz')) 
     ctnp=sitk.GetArrayFromImage(ctitk)
     [slices,rows,cols]=ctnp.shape
+    
+    print [slices,rows,cols]
+    
+    dirname =dirsaveto
+    if not os.path.exists(dirname):
+        os.makedirs(dirname)
+    
+    
+    patnames=[patname+'\n' for patname in patientstmp]
+    h5names=[os.path.join(dirname,'train{0}.h5\n'.format(idx)) for idx,_ in enumerate(patientstmp)]
+    f =open(os.path.join(dirname, 'train.txt'), 'w')
+    f.writelines(h5names)
