@@ -77,3 +77,18 @@ def create_training(path_patients,dirsaveto):
     h5names=[os.path.join(dirname,'train{0}.h5\n'.format(idx)) for idx,_ in enumerate(patientstmp)]
     f =open(os.path.join(dirname, 'train.txt'), 'w')
     f.writelines(h5names)
+
+    f1 =open(os.path.join(dirname, 'patients.txt'), 'w')
+    f1.writelines(patnames)
+    
+    pool = Pool(processes=5)
+    
+    
+    for idx,namepatient in enumerate(patientstmp):
+        pool.apply_async(worker,args=(idx,namepatient,path_patients,dirname))
+    
+    pool.close()
+    pool.join()
+
+
+if __name__ == '__main__':
