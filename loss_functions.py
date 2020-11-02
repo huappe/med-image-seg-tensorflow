@@ -1,2 +1,6 @@
 import tensorflow as tf
-import numpy as n
+import numpy as np
+
+
+
+def
