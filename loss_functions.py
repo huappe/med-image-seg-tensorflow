@@ -3,4 +3,4 @@ import numpy as np
 
 
 
-def
+def loss_dic
