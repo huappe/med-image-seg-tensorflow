@@ -3,4 +3,4 @@ import numpy as np
 
 
 
-def loss_dice(logits, labels, nu
+def loss_dice(logits, labels, num_classes,batch_
