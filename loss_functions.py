@@ -3,4 +3,4 @@ import numpy as np
 
 
 
-def loss_dic
+def loss_dice(logits, l
