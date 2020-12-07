@@ -4,4 +4,4 @@ import numpy as np
 
 
 def loss_dice(logits, labels, num_classes,batch_size_tf):
-    """Calculate the loss from the logi
+    """Calculate the loss from the logits and th
