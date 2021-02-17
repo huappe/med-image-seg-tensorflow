@@ -9,4 +9,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
       logits: tensor, float - [batch_size, width, height, num_classes].
           Use vgg_fcn.up as logits.
       labels: Labels tensor, int32 - [batch_size, width, height].
-          Th
+          The ground truth 
