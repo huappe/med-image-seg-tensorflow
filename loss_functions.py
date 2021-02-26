@@ -10,4 +10,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
           Use vgg_fcn.up as logits.
       labels: Labels tensor, int32 - [batch_size, width, height].
           The ground truth of your data.
-    
+      weights: nump
