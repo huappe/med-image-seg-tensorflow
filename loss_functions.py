@@ -11,4 +11,5 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
       labels: Labels tensor, int32 - [batch_size, width, height].
           The ground truth of your data.
       weights: numpy array - [num_classes]
-          Weighting the loss of each cl
+          Weighting the loss of each class
+          Optio
