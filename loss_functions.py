@@ -12,4 +12,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
           The ground truth of your data.
       weights: numpy array - [num_classes]
           Weighting the loss of each class
-          Optional: Prio
+          Optional: Prioritize s
