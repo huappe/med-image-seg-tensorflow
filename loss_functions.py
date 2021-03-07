@@ -14,3 +14,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
           Weighting the loss of each class
           Optional: Prioritize some classes
     Returns:
+      loss
