@@ -16,4 +16,5 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
     Returns:
       loss: Loss tensor of type float.
     """
-    #labels=tf.squeeze(l
+    #labels=tf.squeeze(labels)
+  
