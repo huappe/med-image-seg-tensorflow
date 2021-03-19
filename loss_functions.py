@@ -19,4 +19,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
     #labels=tf.squeeze(labels)
     with tf.name_scope('loss'):
         #shapelables=labels.get_shape().as_list()
-        probs=tf.nn.sof
+        probs=tf.nn.softmax(log
