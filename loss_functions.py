@@ -20,4 +20,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
     with tf.name_scope('loss'):
         #shapelables=labels.get_shape().as_list()
         probs=tf.nn.softmax(logits)        
-        y_onehot=tf.one_hot(labels,num_classes,1.0,0.0,axis=3,dt
+        y_onehot=tf.one_hot(labels,num_classes,1.0,0.0,axis=3,dtype=tf.float32)
