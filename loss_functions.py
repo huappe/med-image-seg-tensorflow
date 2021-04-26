@@ -35,4 +35,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
         #loss = tf.add_n(tf.get_collection('losses'), name='total_loss')
     return loss
 
-def lossfcn(logits, l
+def lossfcn(logits, labels, 
