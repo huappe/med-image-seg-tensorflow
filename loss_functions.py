@@ -36,4 +36,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
     return loss
 
 def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
-    """Calculate the loss
+    """Calculate the loss from the logit
