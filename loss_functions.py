@@ -38,4 +38,4 @@ def loss_dice(logits, labels, num_classes,batch_size_tf):
 def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
     """Calculate the loss from the logits and the labels.
     Args:
-      logits: tensor, float - [batch_size, width
+      logits: tensor, float - [batch_size, width, height, num_class
