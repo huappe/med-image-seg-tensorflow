@@ -40,4 +40,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
     Args:
       logits: tensor, float - [batch_size, width, height, num_classes].
           Use vgg_fcn.up as logits.
-      labels: Labels tensor, int32 - [batch_size, width, heig
+      labels: Labels tensor, int32 - [batch_size, width, height, num_classes
