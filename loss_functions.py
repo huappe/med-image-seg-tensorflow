@@ -42,4 +42,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
           Use vgg_fcn.up as logits.
       labels: Labels tensor, int32 - [batch_size, width, height, num_classes].
           The ground truth of your data.
-      weights: numpy arr
+      weights: numpy array - [num_c
