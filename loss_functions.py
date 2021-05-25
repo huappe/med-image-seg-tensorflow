@@ -43,4 +43,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
       labels: Labels tensor, int32 - [batch_size, width, height, num_classes].
           The ground truth of your data.
       weights: numpy array - [num_classes]
-   
+          Wei
