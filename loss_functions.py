@@ -44,4 +44,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
           The ground truth of your data.
       weights: numpy array - [num_classes]
           Weighting the loss of each class
-          Optional: Pr
+          Optional: Prioritize some class
