@@ -45,4 +45,5 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
       weights: numpy array - [num_classes]
           Weighting the loss of each class
           Optional: Prioritize some classes
-    Retu
+    Returns:
+      l
