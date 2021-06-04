@@ -52,4 +52,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
     with tf.name_scope('loss'):
         shapelables=labels.get_shape().as_list()
         #print 'shape labels ',labels.get_shape()
-        #print 'shape l
+        #print 'shape logits ',logi
