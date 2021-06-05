@@ -53,4 +53,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
         shapelables=labels.get_shape().as_list()
         #print 'shape labels ',labels.get_shape()
         #print 'shape logits ',logits.get_shape()
-        #print 'batch_size_t
+        #print 'batch_size_tf ',batch_
