@@ -59,4 +59,6 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
         shapelables=labels.get_shape().as_list()
         labels = tf.reshape(labels, [batch_size_tf*shapelables[1]*shapelables[2]])
         labelsonehot=tf.one_hot(labels,num_classes)#Nxnum_classes
-        #print labels.get_shap
+        #print labels.get_shape()
+        
+  
