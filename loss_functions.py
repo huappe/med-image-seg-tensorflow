@@ -67,3 +67,4 @@ def lossfcn(logits, labels, num_classes,batch_size_tf,weights=None):
             
         else:
            
+           cross_en
