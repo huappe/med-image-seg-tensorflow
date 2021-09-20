@@ -5,4 +5,5 @@ from g_model import seg_GAN
 os.environ['CUDA_VISIBLE_DEVICES'] = "2"
 pp = pprint.PrettyPrinter()
 
-flags = tf.app.fla
+flags = tf.app.flags
+flags.DEFINE_b
