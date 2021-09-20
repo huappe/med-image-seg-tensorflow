@@ -6,4 +6,4 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "2"
 pp = pprint.PrettyPrinter()
 
 flags = tf.app.flags
-flags.DEFINE_b
+flags.DEFINE_boolean("is_tra
