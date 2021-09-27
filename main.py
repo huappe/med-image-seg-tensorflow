@@ -6,4 +6,5 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "2"
 pp = pprint.PrettyPrinter()
 
 flags = tf.app.flags
-flags.DEFINE_boolean("is_train", False, "True for training, False for testing [Fal
+flags.DEFINE_boolean("is_train", False, "True for training, False for testing [False]")
+flags.DEFI
