@@ -7,4 +7,5 @@ pp = pprint.PrettyPrinter()
 
 flags = tf.app.flags
 flags.DEFINE_boolean("is_train", False, "True for training, False for testing [False]")
-flags.DEFINE_boolean("adverarial", False, "Adversarial or 
+flags.DEFINE_boolean("adverarial", False, "Adversarial or normal [50000]")
+f
