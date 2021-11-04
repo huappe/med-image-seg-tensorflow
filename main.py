@@ -10,4 +10,4 @@ flags.DEFINE_boolean("is_train", False, "True for training, False for testing [F
 flags.DEFINE_boolean("adverarial", False, "Adversarial or normal [50000]")
 flags.DEFINE_integer("iterations", 500000, "Epoch to train [50000]")
 flags.DEFINE_float("learning_rate", 1e-8, "Learning rate of for SGD [1e-8]")
-flag
+flags.DEFINE_integer(
