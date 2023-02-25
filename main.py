@@ -29,4 +29,4 @@ FLAGS = flags.FLAGS
 
 
 def main(_):
-    pp.pprint
+    pp.pprint(flags.FLAG
