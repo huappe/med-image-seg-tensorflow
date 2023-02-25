@@ -28,4 +28,5 @@ flags.DEFINE_string("path_patients_h5", "/raid/trullro/unet_h5_2d",
 FLAGS = flags.FLAGS
 
 
-def main
+def main(_):
+    pp.pprint
