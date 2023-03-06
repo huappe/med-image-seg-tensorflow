@@ -31,4 +31,4 @@ FLAGS = flags.FLAGS
 def main(_):
     pp.pprint(flags.FLAGS.__flags)
 
-    #if not os.path.exists(FLAGS.checkp
+    #if not os.path.exists(FLAGS.checkpoint_dir):
