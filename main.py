@@ -32,4 +32,4 @@ def main(_):
     pp.pprint(flags.FLAGS.__flags)
 
     #if not os.path.exists(FLAGS.checkpoint_dir):
-    #    os.makedirs(FLAGS
+    #    os.makedirs(FLAGS.checkpoint
