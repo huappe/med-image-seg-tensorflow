@@ -34,4 +34,4 @@ def main(_):
     #if not os.path.exists(FLAGS.checkpoint_dir):
     #    os.makedirs(FLAGS.checkpoint_dir)
 
-    with tf.Se
+    with tf.Session() as ses
