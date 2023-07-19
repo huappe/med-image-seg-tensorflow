@@ -41,4 +41,5 @@ def main(_):
 
         if FLAGS.is_train:            
             gen_model.train(FLAGS)
-        els
+        else:
+         
