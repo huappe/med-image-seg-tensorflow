@@ -42,4 +42,5 @@ def main(_):
         if FLAGS.is_train:            
             gen_model.train(FLAGS)
         else:
-            print 'Test
+            print 'Testing mode..'
+   
