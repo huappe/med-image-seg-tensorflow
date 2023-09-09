@@ -47,4 +47,4 @@ def main(_):
                 print(" [*] Load SUCCESS")
             else:
                 print(" [!] Load failed...")
-              
+                gen_mo
