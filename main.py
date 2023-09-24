@@ -49,4 +49,5 @@ def main(_):
                 print(" [!] Load failed...")
                 gen_model.sess.run(tf.initialize_all_variables())
 
-   
+          
+    
