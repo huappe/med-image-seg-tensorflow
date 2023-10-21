@@ -51,4 +51,4 @@ def main(_):
 
           
             start = gen_model.global_step.eval() # get last global_step
-         
+            print("test 
