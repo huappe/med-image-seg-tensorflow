@@ -55,4 +55,4 @@ def main(_):
             gen_model.test(FLAGS.dir_patients)
 
 
-if _
+if __name__ == '__main__':
