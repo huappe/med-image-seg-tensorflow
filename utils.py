@@ -20,3 +20,11 @@ def process_eso(vol_out):
     voleso=vol_out==1
     voleso=voleso.astype(np.uint8)
     idxesoini=np.where(voleso>0)
+    
+    id_eso=np.where(vol_out==1)
+    seg_eso=np.zeros_like(vol_out)
+    seg_eso[id_eso]=1
+    listorgan=np.where(seg_eso>0)
+    zmin=np.min(listorgan[0])
+    zmax=np.max(listorgan[0])
+    ini_found=False
