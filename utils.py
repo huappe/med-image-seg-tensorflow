@@ -28,3 +28,12 @@ def process_eso(vol_out):
     zmin=np.min(listorgan[0])
     zmax=np.max(listorgan[0])
     ini_found=False
+    for idx in xrange(zmin,zmax):
+        eso_slice=seg_eso[idx]
+        centroid=center_of_mass(eso_slice)
+        if not ini_found:#if we have not found the first slice empty
+            if np.isnan(centroid).any():#look for the first emppty slice
+                #print 'is NAN ',idx
+                ini=idx-1
+                pini=list(center_of_mass(seg_eso[idx-1]))
+                pini.append(idx-1)
