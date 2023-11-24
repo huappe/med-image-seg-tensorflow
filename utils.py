@@ -37,3 +37,13 @@ def process_eso(vol_out):
                 ini=idx-1
                 pini=list(center_of_mass(seg_eso[idx-1]))
                 pini.append(idx-1)
+                ini_found=True
+        else:#if we have already found the first empty slice, look for the final one
+            idvox=np.where(eso_slice==1)
+            nvoxels=len(idvox[0])
+            if not np.isnan(centroid).any() and nvoxels>5:#the slice with data and enough voxels
+
+                #print 'final nan ',idx
+                fin=idx
+                pfin=list(center_of_mass(seg_eso[fin]))
+                pfin.append(idx)
