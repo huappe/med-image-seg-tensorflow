@@ -47,3 +47,16 @@ def process_eso(vol_out):
                 fin=idx
                 pfin=list(center_of_mass(seg_eso[fin]))
                 pfin.append(idx)
+                #print 'pini ',pini
+                #print 'pfin ',pfin
+                for z in xrange(ini,fin):#we will fill the empty slices here
+                    newcenter=interpolateline(pini,pfin,z)
+                    #print 'new center ',newcenter
+                    #print 'prev center ',center_of_mass(seg_eso[z-1])
+                    translation=np.int16(np.array(newcenter)-np.array(center_of_mass(seg_eso[z-1])))
+                    #print 'trans ',translation
+                    #tx = tf.SimilarityTransform(translation=(0,0))#tuple(translation)
+                    if z==ini:
+                        slicetmp = shift(seg_eso[z-5],translation)#tf.warp(seg_eso[z-1], tx)
+                    else:
+                        slicetmp = shift(seg_eso[z-1],translation)#tf.warp(seg_eso[z-1], tx)
