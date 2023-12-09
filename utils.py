@@ -74,3 +74,9 @@ def process_eso(vol_out):
 def interpolateline(p0,p1,z):
     #p1 and p2 are 3d points x,y,z and z is the slice for which we want to compute x and y
     
+    x=(float(z-p0[2])/(p1[2]-p0[2]))*(p1[0]-p0[0])+p0[0]
+    y=(float(z-p0[2])/(p1[2]-p0[2]))*(p1[1]-p0[1])+p0[1]
+    print 'x ',x
+    print 'y ',y
+    return x,y
+
