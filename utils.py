@@ -80,3 +80,18 @@ def interpolateline(p0,p1,z):
     print 'y ',y
     return x,y
 
+
+def postprocess(vol_out):
+    print 'postprocessing now...'
+    r=int(vol_out.shape[1]/2.0)
+    c=int(vol_out.shape[2]/2.0)
+    sizecropup=150
+    sizecropdown=100
+    sizecrop=200
+
+    mask=np.zeros_like(vol_out)
+    mask[20:,r-sizecropup:r+sizecropdown,c-sizecrop/2:c+sizecrop/2]=1
+    mask[-25:,r-sizecropup:r+sizecropdown,c-sizecrop/2:c+sizecrop/2]=0
+    vol_out*=mask
+    print vol_out.shape
+    print np.unique(vol_out)
