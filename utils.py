@@ -110,3 +110,15 @@ def postprocess(vol_out):
 
     voleso=vol_out==1
     voleso=voleso.astype(np.uint8)
+    idxesoini=np.where(voleso>0)
+
+    cc = sitk.ConnectedComponentImageFilter()
+
+    vol_out1 = cc.Execute(sitk.GetImageFromArray(volheart))
+    voltmp=sitk.RelabelComponent(vol_out1)
+    volheartfiltered=sitk.GetArrayFromImage(voltmp)
+    volheartfiltered=volheartfiltered==1
+
+    vol_out2 = cc.Execute(sitk.GetImageFromArray(volaorta))
+    voltmp=sitk.RelabelComponent(vol_out2)
+    volaortafiltered=sitk.GetArrayFromImage(voltmp)
