@@ -60,3 +60,17 @@ def process_eso(vol_out):
                         slicetmp = shift(seg_eso[z-5],translation)#tf.warp(seg_eso[z-1], tx)
                     else:
                         slicetmp = shift(seg_eso[z-1],translation)#tf.warp(seg_eso[z-1], tx)
+                    #print 'unique slice befor trans ',np.unique(seg_eso[z-1])
+                    #print 'unique slice tmp ',np.unique(slicetmp)
+                    seg_eso[z]=slicetmp
+                ini_found=False
+    idxeso=np.where(seg_eso>0)
+    volfinal=np.copy(vol_out)
+    volfinal[idxesoini]=0
+    volfinal[idxeso]=1
+    return volfinal
+    
+    
+def interpolateline(p0,p1,z):
+    #p1 and p2 are 3d points x,y,z and z is the slice for which we want to compute x and y
+    
