@@ -95,3 +95,18 @@ def postprocess(vol_out):
     vol_out*=mask
     print vol_out.shape
     print np.unique(vol_out)
+
+    volheart=vol_out==2
+    volheart=volheart.astype(np.uint8)
+    idxheartini=np.where(volheart>0)
+
+    volaorta=vol_out==4
+    volaorta=volaorta.astype(np.uint8)
+    idxaortaini=np.where(volaorta>0)
+
+    voltrach=vol_out==3
+    voltrach=voltrach.astype(np.uint8)
+    idxtrachini=np.where(voltrach>0)
+
+    voleso=vol_out==1
+    voleso=voleso.astype(np.uint8)
