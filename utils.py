@@ -122,3 +122,16 @@ def postprocess(vol_out):
     vol_out2 = cc.Execute(sitk.GetImageFromArray(volaorta))
     voltmp=sitk.RelabelComponent(vol_out2)
     volaortafiltered=sitk.GetArrayFromImage(voltmp)
+    volaortafiltered=volaortafiltered==1
+
+    vol_out3 = cc.Execute(sitk.GetImageFromArray(voltrach))
+    voltmp=sitk.RelabelComponent(vol_out3)
+    voltrachfiltered=sitk.GetArrayFromImage(voltmp)
+    voltrachfiltered=voltrachfiltered==1
+
+    vol_out4 = sitk.GetImageFromArray(voleso)
+    voltmp=sitk.BinaryMedian(vol_out4)
+    volesofiltered=sitk.GetArrayFromImage(voltmp)
+    #vol_out4 = cc.Execute(sitk.GetImageFromArray(voleso))
+    #voltmp=sitk.RelabelComponent(vol_out4)
+    #volesofiltered=sitk.GetArrayFromImage(voltmp)
