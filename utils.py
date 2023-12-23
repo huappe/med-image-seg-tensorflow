@@ -135,3 +135,12 @@ def postprocess(vol_out):
     #vol_out4 = cc.Execute(sitk.GetImageFromArray(voleso))
     #voltmp=sitk.RelabelComponent(vol_out4)
     #volesofiltered=sitk.GetArrayFromImage(voltmp)
+    #volesofiltered=volesofiltered==1
+
+    maskheart=np.logical_and(volheartfiltered,volheart)
+    maskaorta=np.logical_and(volaortafiltered,volaorta)
+    masktrachea=np.logical_and(voltrachfiltered,voltrach)
+    maskeso=volesofiltered>0#np.logical_and(volesofiltered,volesofiltered)
+    #maskeso=np.logical_and(volesofiltered,voleso)
+
+    for ind in xrange(volheartfiltered.shape[0]):
