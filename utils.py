@@ -144,3 +144,17 @@ def postprocess(vol_out):
     #maskeso=np.logical_and(volesofiltered,voleso)
 
     for ind in xrange(volheartfiltered.shape[0]):
+        maskheart[ind]=binary_fill_holes(maskheart[ind]).astype(int)
+        maskaorta[ind]=binary_fill_holes(maskaorta[ind]).astype(int)
+        masktrachea[ind]=binary_fill_holes(masktrachea[ind]).astype(int)
+        maskeso[ind]=binary_fill_holes(maskeso[ind]).astype(int)
+    idxheart=np.where(maskheart>0)
+    idxaorta=np.where(maskaorta>0)
+    idxtrachea=np.where(masktrachea>0)
+    idxeso=np.where(maskeso>0)
+    vol_out[idxheartini]=0
+    vol_out[idxheart]=2
+    vol_out[idxaortaini]=0
+    vol_out[idxaorta]=4
+    vol_out[idxtrachini]=0
+    vol_out[idxtrachea]=3
