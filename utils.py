@@ -158,3 +158,14 @@ def postprocess(vol_out):
     vol_out[idxaorta]=4
     vol_out[idxtrachini]=0
     vol_out[idxtrachea]=3
+    vol_out[idxesoini]=0
+    vol_out[idxeso]=1
+
+    volfinal=np.copy(vol_out)
+    return volfinal
+
+
+
+
+
+def psnr(ct_generated,ct_GT):
