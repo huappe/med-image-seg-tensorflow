@@ -169,3 +169,16 @@ def postprocess(vol_out):
 
 
 def psnr(ct_generated,ct_GT):
+    print ct_generated.shape
+    print ct_GT.shape
+
+    mse=np.sqrt(np.mean((ct_generated-ct_GT)**2))
+    print 'mse ',mse
+    max_I=np.max([np.max(ct_generated),np.max(ct_GT)])
+    print 'max_I ',max_I
+    return 20.0*np.log10(max_I/mse)
+
+def dice(im1, im2,organid):
+    """
+    Computes the Dice coefficient, a measure of set similarity.
+    Parameters
