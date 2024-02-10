@@ -208,3 +208,11 @@ def dice(im1, im2,organid):
         raise ValueError("Shape mismatch: im1 and im2 must have the same shape.")
 
     # Compute Dice coefficient
+    intersection = np.logical_and(im1, im2)
+
+    return 2. * intersection.sum() / (im1.sum() + im2.sum())
+
+
+def Generator_2D_slices(path_patients,batchsize):
+    #path_patients='/home/dongnie/warehouse/CT_patients/test_set/'
+    print path_patients
