@@ -250,3 +250,23 @@ def Generator_2D_slices(path_patients,batchsize):
                 
                 y=np.zeros((dataCT.shape[0]+to_add,dataCT.shape[1],dataCT.shape[2]))#dataCT
                 y[:dataCT.shape[0],...]=dataCT
+                y[dataCT.shape[0]:,...]=dataCT[inds_toadd]
+                
+            else:
+                X=np.copy(dataMR)                
+                y=np.copy(dataCT)
+
+            #X = np.expand_dims(X, axis=3)    
+            X=X.astype(np.float32)
+            y=np.expand_dims(y, axis=3)#B,H,W,C
+            y=y.astype(np.float32)
+            #y[np.where(y==5)]=0
+            print 'y shape ', y.shape                   
+            for i_batch in xrange(int(X.shape[0]/batchsize)):
+                yield (X[i_batch*batchsize:(i_batch+1)*batchsize,...],  y[i_batch*batchsize:(i_batch+1)*batchsize,...])
+
+
+def Generator_2D_slices_h5(path_patients,batchsize):
+    ignore_label=-1
+
+    patients = [os.path.basename(x) for x in glob.glob(os.path.join(path_patients,'*.h5'))]#only h5 files
