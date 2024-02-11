@@ -216,3 +216,21 @@ def dice(im1, im2,organid):
 def Generator_2D_slices(path_patients,batchsize):
     #path_patients='/home/dongnie/warehouse/CT_patients/test_set/'
     print path_patients
+    patients = os.listdir(path_patients)#every file  is a hdf5 patient
+    while True:
+        
+        for idx,namepatient in enumerate(patients):
+            print namepatient            
+            f=h5py.File(os.path.join(path_patients,namepatient))
+            dataMRptr=f['data']
+            dataMR=dataMRptr.value
+            
+            dataCTptr=f['label']
+            dataCT=dataCTptr.value
+
+            dataMR=np.squeeze(dataMR)
+            dataCT=np.squeeze(dataCT)
+
+            #print 'mr shape h5 ',dataMR.shape#B,H,W,C
+            #print 'ct shape h5 ',dataCT.shape#B,H,W
+            
