@@ -234,3 +234,19 @@ def Generator_2D_slices(path_patients,batchsize):
             #print 'mr shape h5 ',dataMR.shape#B,H,W,C
             #print 'ct shape h5 ',dataCT.shape#B,H,W
             
+            shapedata=dataMR.shape
+            #Shuffle data
+            idx_rnd=np.random.choice(shapedata[0], shapedata[0], replace=False)
+            dataMR=dataMR[idx_rnd,...]
+            dataCT=dataCT[idx_rnd,...]
+            modulo=np.mod(shapedata[0],batchsize)
+################## always the number of samples will be a multiple of batchsz##########################3            
+            if modulo!=0:
+                to_add=batchsize-modulo
+                inds_toadd=np.random.randint(0,dataMR.shape[0],to_add)
+                X=np.zeros((dataMR.shape[0]+to_add,dataMR.shape[1],dataMR.shape[2],dataMR.shape[3]))#dataMR
+                X[:dataMR.shape[0],...]=dataMR
+                X[dataMR.shape[0]:,...]=dataMR[inds_toadd]                
+                
+                y=np.zeros((dataCT.shape[0]+to_add,dataCT.shape[1],dataCT.shape[2]))#dataCT
+                y[:dataCT.shape[0],...]=dataCT
