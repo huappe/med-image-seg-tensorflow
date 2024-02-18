@@ -270,3 +270,21 @@ def Generator_2D_slices_h5(path_patients,batchsize):
     ignore_label=-1
 
     patients = [os.path.basename(x) for x in glob.glob(os.path.join(path_patients,'*.h5'))]#only h5 files
+
+    print patients
+    while True:
+        
+        for idx,namepatient in enumerate(patients):
+            print namepatient            
+            f=h5py.File(os.path.join(path_patients,namepatient))
+            dataptr=f['data']
+            data=dataptr.value
+            
+            labelptr=f['label']
+            labels=labelptr.value
+            labels=labels.astype(np.int32)
+            shapedata=data.shape
+            #print 'data shape ', shapedata
+            #Shuffle data
+            #idx_rnd=np.random.choice(shapedata[0], shapedata[0], replace=False)
+            #data=data[idx_rnd,...]
