@@ -316,3 +316,15 @@ def Generator_2D_slices_h5(path_patients,batchsize):
             for i_batch in xrange(int(X.shape[0]/batchsize)):
                 yield (X[i_batch*batchsize:(i_batch+1)*batchsize,...],  y[i_batch*batchsize:(i_batch+1)*batchsize,...])
 
+
+def Generator_2D_slices_h5_prefetch(path_patients,batchsize, queue):
+    ignore_label=-1
+
+    patients = [os.path.basename(x) for x in glob.glob(os.path.join(path_patients,'*.h5'))]#only h5 files
+
+    print patients
+    while True:
+        
+        for idx,namepatient in enumerate(patients):
+            print namepatient            
+            f=h5py.File(os.path.join(path_patients,namepatient))
