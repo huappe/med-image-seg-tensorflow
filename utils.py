@@ -288,3 +288,11 @@ def Generator_2D_slices_h5(path_patients,batchsize):
             #Shuffle data
             #idx_rnd=np.random.choice(shapedata[0], shapedata[0], replace=False)
             #data=data[idx_rnd,...]
+            #labels=labels[idx_rnd,...]
+            labels[np.where(labels==5)]=ignore_label
+            modulo=np.mod(shapedata[0],batchsize)
+################## always the number of samples will be a multiple of batchsz##########################3            
+            if modulo!=0:
+                to_add=batchsize-modulo
+                inds_toadd=np.random.randint(0,data.shape[0],to_add)
+                X=np.zeros((data.shape[0]+to_add,data.shape[1],data.shape[2],data.shape[3]))#data
