@@ -328,3 +328,13 @@ def Generator_2D_slices_h5_prefetch(path_patients,batchsize, queue):
         for idx,namepatient in enumerate(patients):
             print namepatient            
             f=h5py.File(os.path.join(path_patients,namepatient))
+            dataptr=f['data']
+            data=dataptr.value
+            
+            labelptr=f['label']
+            labels=labelptr.value
+            labels=labels.astype(np.int32)
+            shapedata=data.shape
+            print 'data shape ', shapedata
+            #Shuffle data
+            #idx_rnd=np.random.choice(shapedata[0], shapedata[0], replace=False)
