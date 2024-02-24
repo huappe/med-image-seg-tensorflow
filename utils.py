@@ -350,3 +350,18 @@ def Generator_2D_slices_h5_prefetch(path_patients,batchsize, queue):
                 X[:data.shape[0],...]=data
                 X[data.shape[0]:,...]=data[inds_toadd]                
                 
+                y=np.zeros((labels.shape[0]+to_add,labels.shape[1],labels.shape[2]))#labels
+                y[:labels.shape[0],...]=labels
+                y[labels.shape[0]:,...]=labels[inds_toadd]
+                
+            else:
+                X=np.copy(data)                
+                y=np.copy(labels)
+
+            X = np.squeeze(X)
+            X=np.expand_dims(X, axis=3)  
+            X=X.astype(np.float32)
+            #y=np.expand_dims(y, axis=3)
+            y=y.astype(np.int32)
+            print 'ct shape ', X.shape
+            for i_batch in xrange(int(X.shape[0]/batchsize)):
