@@ -379,3 +379,16 @@ def Generator_3D_patches(path_patients,batchsize):
             print namepatient            
             f=h5py.File(os.path.join(path_patients,namepatient))
             dataMRptr=f['dataMR']
+            dataMR=dataMRptr.value
+            #dataMR=np.squeeze(dataMR)
+            
+            dataCTptr=f['dataCT']
+            dataCT=dataCTptr.value
+            #dataCT=np.squeeze(dataCT)
+
+            dataMR=np.squeeze(dataMR)
+            dataCT=np.squeeze(dataCT)
+            print 'mr shape h5 ',dataMR.shape
+
+            
+            shapedata=dataMR.shape
