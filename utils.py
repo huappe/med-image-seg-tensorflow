@@ -365,3 +365,17 @@ def Generator_2D_slices_h5_prefetch(path_patients,batchsize, queue):
             y=y.astype(np.int32)
             print 'ct shape ', X.shape
             for i_batch in xrange(int(X.shape[0]/batchsize)):
+                queue.put((X[i_batch*batchsize:(i_batch+1)*batchsize,...],  y[i_batch*batchsize:(i_batch+1)*batchsize,...]), True)
+
+
+
+def Generator_3D_patches(path_patients,batchsize):
+    #path_patients='/home/dongnie/warehouse/CT_patients/test_set/'
+    print path_patients
+    patients = os.listdir(path_patients)#every file  is a hdf5 patient
+    while True:
+        
+        for idx,namepatient in enumerate(patients):
+            print namepatient            
+            f=h5py.File(os.path.join(path_patients,namepatient))
+            dataMRptr=f['dataMR']
