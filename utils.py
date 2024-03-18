@@ -408,3 +408,15 @@ def Generator_3D_patches(path_patients,batchsize):
                 y=np.zeros((dataCT.shape[0]+to_add, dataCT.shape[1], dataCT.shape[2], dataCT.shape[3]))#dataCT
                 y[:dataCT.shape[0],...]=dataCT
                 y[dataCT.shape[0]:,...]=dataCT[inds_toadd]
+                
+            else:
+                X=np.copy(dataMR)                
+                y=np.copy(dataCT)
+
+            X = np.expand_dims(X, axis=4)     
+            X=X.astype(np.float32)
+            y=np.expand_dims(y, axis=4)
+            y=y.astype(np.float32)
+            
+            print 'y shape ', y.shape
+            print 'X shape ', X.shape                 
