@@ -420,3 +420,10 @@ def Generator_3D_patches(path_patients,batchsize):
             
             print 'y shape ', y.shape
             print 'X shape ', X.shape                 
+            for i_batch in xrange(int(X.shape[0]/batchsize)):
+                yield (X[i_batch*batchsize:(i_batch+1)*batchsize,...],  y[i_batch*batchsize:(i_batch+1)*batchsize,...])
+
+
+def get_test_slices(path_test):
+    """
+    Gets a clip from the test dataset.
