@@ -427,3 +427,17 @@ def Generator_3D_patches(path_patients,batchsize):
 def get_test_slices(path_test):
     """
     Gets a clip from the test dataset.
+
+    @param test_batch_size: The number of clips.
+    @param num_rec_out: The number of outputs to predict. Outputs > 1 are computed recursively,
+                        using the previously-generated frames as input. Default = 1.
+
+    @return: An array of shape:
+             [test_batch_size, c.TEST_HEIGHT, c.TEST_WIDTH, (3 * (c.HIST_LEN + num_rec_out))].
+             A batch of frame sequences with values normalized in range [-1, 1].
+    """
+    patients = os.listdir(path_test)#every file  is a hdf5 patient
+    idx=np.random.choice(len(patients), 1, replace=False)
+    f=h5py.File(os.path.join(path_test,patients[idx]))
+    dataMRptr=f['dataMR']
+    dataMR=dataMRptr.value
