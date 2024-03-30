@@ -488,3 +488,10 @@ def deconv_op(input_op, name, kw, kh, n_out, wd, batchsize, activation=True):
         kernel = _variable_with_weight_decay("w", shape, wd)
         conv =  tf.nn.conv2d_transpose(input_op, kernel, output_shape,strides=[1, 2, 2, 1], padding='SAME')
         bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
+        z = tf.nn.bias_add(conv, biases)
+        if activation:
+            z=tf.nn.relu(z, name='Activation')
+        return z
+
+def mpool_op(input_op, name, kh, kw, dh, dw):
