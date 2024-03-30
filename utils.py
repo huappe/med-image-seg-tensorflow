@@ -476,3 +476,15 @@ def conv_op_bn(input_op, name, kw, kh, n_out, dw, dh, wd, padding,train_phase):
         z=batch_norm_layer(out_conv,train_phase,scope_bn)
         #activation = tf.nn.relu(z, name='Activation')
         return z
+
+def deconv_op(input_op, name, kw, kh, n_out, wd, batchsize, activation=True):
+    n_in = input_op.get_shape()[-1].value
+    shape=[kh, kw, n_out, n_in]
+    #batchsize=input_op.get_shape()[0].value
+    hin=input_op.get_shape()[1].value
+    win=input_op.get_shape()[2].value
+    output_shape=[batchsize, 2*hin, 2*win, n_out]
+    with tf.variable_scope(name):
+        kernel = _variable_with_weight_decay("w", shape, wd)
+        conv =  tf.nn.conv2d_transpose(input_op, kernel, output_shape,strides=[1, 2, 2, 1], padding='SAME')
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
