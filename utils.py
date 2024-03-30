@@ -464,3 +464,15 @@ def conv_op(input_op, name, kw, kh, n_out, dw, dh,wd,padding='SAME',activation=T
         return z
 
 def conv_op_bn(input_op, name, kw, kh, n_out, dw, dh, wd, padding,train_phase):
+    n_in = input_op.get_shape()[-1].value
+    shape=[kh, kw, n_in, n_out]
+    scope_bn=name+'_bn'
+    with tf.variable_scope(name):
+        kernel=_variable_with_weight_decay("w", shape, wd)
+        conv = tf.nn.conv2d(input_op, kernel, (1, dh, dw, 1), padding=padding)
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
+        out_conv = tf.nn.bias_add(conv, biases)
+        z=batch_norm_layer(out_conv,train_phase,scope_bn)
+        #activation = tf.nn.relu(z, name='Activation')
+        return z
