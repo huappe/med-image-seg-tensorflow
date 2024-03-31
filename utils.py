@@ -527,3 +527,15 @@ def conv_op_3d_bn(input_op, name, kw, kh, kz, n_out, dw, dh, dz, wd, padding,tra
         out_conv = tf.nn.bias_add(conv, biases)
         z=batch_norm_layer(out_conv,train_phase,scope_bn)
         #activation = tf.nn.relu(z, name='Activation')
+        return z
+
+def conv_op_3d_norelu(input_op, name, kw, kh, kz, n_out, dw, dh, dz, wd, padding):
+    n_in = input_op.get_shape()[-1].value
+    shape=[kz, kh, kw, n_in, n_out]
+    with tf.variable_scope(name):
+        kernel=_variable_with_weight_decay("w", shape, wd)
+        conv = tf.nn.conv3d(input_op, kernel, (1, dz, dh, dw, 1), padding=padding)
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
+        z = tf.nn.bias_add(conv, biases)
+        #activation = tf.nn.relu(z, name='Activation')
