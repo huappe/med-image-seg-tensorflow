@@ -539,3 +539,12 @@ def conv_op_3d_norelu(input_op, name, kw, kh, kz, n_out, dw, dh, dz, wd, padding
         biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
         z = tf.nn.bias_add(conv, biases)
         #activation = tf.nn.relu(z, name='Activation')
+        return z
+
+def deconv_op_3d(input_op, name, kw, kh, kz, n_out, wd, batchsize):
+    n_in = input_op.get_shape()[-1].value
+    shape=[kz, kh, kw, n_in, n_out]
+
+    zin=input_op.get_shape()[1].value
+    hin=input_op.get_shape()[2].value
+    win=input_op.get_shape()[3].value
