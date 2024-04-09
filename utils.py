@@ -548,3 +548,16 @@ def deconv_op_3d(input_op, name, kw, kh, kz, n_out, wd, batchsize):
     zin=input_op.get_shape()[1].value
     hin=input_op.get_shape()[2].value
     win=input_op.get_shape()[3].value
+    output_shape=[batchsize, 2*zin, 2*hin, 2*win, n_out]
+    with tf.variable_scope(name):
+        kernel=_variable_with_weight_decay("w", shape, wd)
+        conv =  tf.nn.conv3d_transpose(input_op, kernel, output_shape,strides=[1, 2, 2, 2, 1], padding='SAME')
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
+        z = tf.nn.bias_add(conv, biases)
+        activation = tf.nn.relu(z, name='Activation')
+        return activation
+
+def conv_op_norelu(input_op, name, kw, kh, n_out, dw, dh,wd):
+    n_in = input_op.get_shape()[-1].value
+    shape=[kh, kw, n_in, n_out]
