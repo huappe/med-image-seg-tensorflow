@@ -574,3 +574,14 @@ def conv_op_norelu(input_op, name, kw, kh, n_out, dw, dh,wd):
 def deconv_op_norelu(input_op, name, kw, kh, n_out, wd):
     n_in = input_op.get_shape()[-1].value
     shape=[kh, kw, n_out, n_in]
+    batchsize=input_op.get_shape()[0].value
+    hin=input_op.get_shape()[1].value
+    win=input_op.get_shape()[2].value
+    output_shape=[batchsize, 2*hin, 2*win, n_out]
+    with tf.variable_scope(name):
+        kernel = _variable_with_weight_decay("w", shape, wd)
+        conv =  tf.nn.conv2d_transpose(input_op, kernel, output_shape,strides=[1, 2, 2, 1], padding='SAME')
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
+        z = tf.reshape(tf.nn.bias_add(conv, biases), conv.get_shape())
+        return z
