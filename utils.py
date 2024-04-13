@@ -585,3 +585,15 @@ def deconv_op_norelu(input_op, name, kw, kh, n_out, wd):
         biases = tf.get_variable(initializer=bias_init_val, trainable=True, name='b')
         z = tf.reshape(tf.nn.bias_add(conv, biases), conv.get_shape())
         return z
+
+
+def concatenate_op(input_op1,input_op2,name):
+    return tf.concat(3,[input_op1,input_op2],name=name)
+
+
+def upsample_op(input_op,name):
+    height=input_op.get_shape()[1].value
+    width=input_op.get_shape()[2].value
+    return tf.image.resize_nearest_neighbor(input_op, size=[2*height, 2*width],name=name)
+
+#here I writhe 3d pooling
