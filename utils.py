@@ -613,3 +613,21 @@ def fullyconnected_op(input_op, name, n_out, wd, activation=True):
     shape=[n_inputs, n_out]
     with tf.variable_scope(name):
         W=_variable_with_weight_decay("w", shape, wd)
+        print W.name
+        bias_init_val = tf.constant(0.0, shape=[n_out], dtype=tf.float32)
+        biases = tf.get_variable(initializer=bias_init_val, trainable=True, name ='b')
+        if len(im_shape) > 2: #we have to flatten it then
+            x = tf.reshape(input_op, [-1, n_inputs])
+        else:
+            x=input_op
+        z = tf.matmul(x, W)+biases
+        if activation:
+            z = tf.nn.relu(z)
+
+    return z
+
+def _variable_with_weight_decay(name, shape, wd):
+  """Helper to create an initialized Variable with weight decay.
+  Note that the Variable is initialized with a truncated normal distribution.
+  A weight decay is added only if one is specified.
+  Args:
