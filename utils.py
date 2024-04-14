@@ -631,3 +631,18 @@ def _variable_with_weight_decay(name, shape, wd):
   Note that the Variable is initialized with a truncated normal distribution.
   A weight decay is added only if one is specified.
   Args:
+    name: name of the variable
+    shape: list of ints
+    stddev: standard deviation of a truncated Gaussian
+    wd: add L2Loss weight decay multiplied by this float. If None, weight
+        decay is not added for this Variable.
+  Returns:
+    Variable Tensor
+  """
+  #tf.contrib.layers.xavier_initializer_conv2d()
+  [fan_in, fan_out]=get_fans(shape)
+  initializer=xavier_init(fan_in, fan_out)
+  
+  var=tf.get_variable(name, shape=shape,dtype=tf.float32, initializer=initializer)
+  weight_decay = tf.mul(tf.nn.l2_loss(var), wd, name='weight_loss')
+  tf.add_to_collection('losses', weight_decay)
