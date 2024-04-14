@@ -597,3 +597,19 @@ def upsample_op(input_op,name):
     return tf.image.resize_nearest_neighbor(input_op, size=[2*height, 2*width],name=name)
 
 #here I writhe 3d pooling
+def mpool_op_3d(input_op, name, kh, kw, kz, dh, dw, dz):
+    return tf.nn.max_pool_3d(input_op,
+                          ksize=[1, kh, kw, kz, 1],
+                          strides=[1, dh, dw, dz, 1],
+                          padding='SAME',
+                          name=name)
+
+
+
+def fullyconnected_op(input_op, name, n_out, wd, activation=True):
+    im_shape = input_op.get_shape().as_list()
+    assert len(im_shape) > 1, "Input Tensor shape must be at least 2-D: batch, ninputs"
+    n_inputs = int(np.prod(im_shape[1:])) #units at lower layer
+    shape=[n_inputs, n_out]
+    with tf.variable_scope(name):
+        W=_variable_with_weight_decay("w", shape, wd)
