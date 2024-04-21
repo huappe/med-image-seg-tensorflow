@@ -646,3 +646,16 @@ def _variable_with_weight_decay(name, shape, wd):
   var=tf.get_variable(name, shape=shape,dtype=tf.float32, initializer=initializer)
   weight_decay = tf.mul(tf.nn.l2_loss(var), wd, name='weight_loss')
   tf.add_to_collection('losses', weight_decay)
+
+  return var
+
+
+def get_fans(shape):
+    receptive_field_size = np.prod(shape[:-2])
+    fan_in = shape[-2] * receptive_field_size
+    fan_out = shape[-1] * receptive_field_size
+        
+    return fan_in, fan_out
+
+
+def xavier_init(n_inputs, n_outputs, uniform=True):
