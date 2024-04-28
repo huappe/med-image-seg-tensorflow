@@ -659,3 +659,19 @@ def get_fans(shape):
 
 
 def xavier_init(n_inputs, n_outputs, uniform=True):
+
+    """Set the parameter initialization using the method described.
+    This method is designed to keep the scale of the gradients roughly the same
+    in all layers.
+    Xavier Glorot and Yoshua Bengio (2010):
+           Understanding the difficulty of training deep feedforward neural
+           networks. International conference on artificial intelligence and
+           statistics.
+    Args:
+    n_inputs: fan_in
+    n_outputs: fan_out
+    uniform: If true use a uniform distribution, otherwise use a normal.
+    Returns:
+    An initializer.
+    """
+    if uniform:
