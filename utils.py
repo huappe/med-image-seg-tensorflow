@@ -675,3 +675,20 @@ def xavier_init(n_inputs, n_outputs, uniform=True):
     An initializer.
     """
     if uniform:
+        # 6 was used in the paper.
+        init_range = np.sqrt(6.0 / (n_inputs + n_outputs))
+        return tf.random_uniform_initializer(-init_range, init_range)
+    else:
+        # 3 gives us approximately the same limits as above since this repicks
+        # values greater than 2 standard deviations from the mean.
+        stddev = np.sqrt(3.0 / (n_inputs + n_outputs))
+        return tf.truncated_normal_initializer(stddev=stddev)
+
+def batch_norm_layer(x,train_phase,scope_bn):
+    outputs = tf.contrib.layers.batch_norm(x, is_training=train_phase, center=False, scale=False, activation_fn=tf.nn.relu, updates_collections=None, scope='batch_norm')
+    return outputs
+    # def batch_norm_layer(x,train_phase,scope_bn):
+#     bn_train = batch_norm(x, decay=0.999, center=True, scale=True,
+#     updates_collections=None,
+#     is_training=True,
+#     reuse=None, # is this right?
