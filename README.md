@@ -17,3 +17,14 @@ Data
 |...
 ```
 The name can be different as long as the CT file and folder name are identical.
+The initial step is to convert the CT and its ground truth data to h5 format. This is carried out by the generate_2d_h5.py script. To initiate it, you should type:
+
+    python generate_2d_h5.py --src /path/to/patients --dst /path/to/save/h5/files
+
+This will generate a folder that includes several h5 files containing the training data (input CT slices and corresponding labels).
+
+Following this, you should be able to run:
+
+    python main.py --dir_patients /path/to/CT_data --path_patients_h5 /path/to/h5files
+
+The code has several options for training and testing that you'll see when you execute python main.py.
